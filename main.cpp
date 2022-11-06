@@ -1,6 +1,8 @@
-#include<bits/stdc++.h>
-#include"Suffix_tree.h"
+#include <bits/stdc++.h>
 using namespace std;
-int main(void){
+#include "Suffix_tree.h"
+
+int main(void)
+{
     return 0;
 }

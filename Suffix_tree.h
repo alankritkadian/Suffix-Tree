@@ -7,7 +7,7 @@ struct SuffixTreeNode
 {
    struct SuffixTreeNode *suffixLink;
    struct SuffixTreeNode *children[256];
-   int suffixindex;
+   int suffixIndex;
    int *end;
    int start;
 };

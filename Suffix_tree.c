@@ -1,10 +1,11 @@
-#include<stdio.h>
-#include"Suffix_tree.h"
-long int edgeLength(struct SuffixTreeNode*a)
+#include <stdio.h>
+#include "Suffix_tree.h"
+
+long int edgeLength(struct SuffixTreeNode *a)
 {
-  long int e=*(a->end);
-  long int s= a->start ; 
-  return (e-s+1);
+   long int e = *(a->end);
+   long int s = a->start;
+   return (e - s + 1);
 }
 struct SuffixTreeNode *newNode(long int start, int *end)
 {
