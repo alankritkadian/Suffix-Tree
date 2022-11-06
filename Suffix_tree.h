@@ -14,6 +14,6 @@ struct SuffixTreeNode
 int activeLength;
 int activeEdge;
 
-long int edgeLength(struct SuffixTreeNode *a);
-struct SuffixTreeNode *newNode(long int start, long int *end);
+int edgeLength(struct SuffixTreeNode *a);
+struct SuffixTreeNode *newNode(int start,int *end);
 #endif
