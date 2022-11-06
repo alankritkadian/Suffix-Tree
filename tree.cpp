@@ -14,8 +14,8 @@ struct SuffixTreeNode{
 
 int edgeLength(struct SuffixTreeNode*a)
 {
-  int e=*(n->end);
-  int s= n->start ; 
+  int e=*(a->end);
+  int s= a->start ; 
   return (e-s+1);
 }
 int main(void){
