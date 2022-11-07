@@ -1,18 +1,13 @@
 #include <stdio.h>
+#include<stdlib.h>
+#include<string.h>
 #include "Suffix_tree.h"
-
 char text[100];
-
-int activeLength = 0;
-int activeEdge = -1;
-
 node *root = NULL;
 node *lastNewNode = NULL;
-
 node *activeNode = NULL;
 int activeEdge = -1;
 int activeLength = 0;
-
 int remainingSuffixCount = 0;
 int END = -1;
 int *rootEnd = NULL;
@@ -30,7 +25,6 @@ node *newNode(int start, int *end)
    STnode->suffixIndex = -1;
    return STnode;
 }
-
 int edgeLength(node *A)
 {
    if(A==root)
@@ -39,7 +33,6 @@ int edgeLength(node *A)
    long int s = A->start;
    return (e - s + 1);
 }
-
 int walkDown(node *A)
 {
    // APCFWD - Active point change for walk down using skip/count trick(Trick 1)
@@ -52,7 +45,6 @@ int walkDown(node *A)
    }
    return 0;
 }
-// Setting suffix indices for the suffix tree
 void extendSuffixTree(int pos){
    END = pos;
    remainingSuffixCount++;
@@ -123,4 +115,7 @@ void setSuffixIndex(node *n, int labelHeight)
       if (n->children[i] != NULL)
          setSuffixIndex(n->children[i], labelHeight + edgeLength(n->children[i]));
    }
+}
+node* returnRoot(){
+   return root;
 }
