@@ -12,6 +12,10 @@ typedef struct SuffixTreeNode
 
 struct SuffixTreeNode *newNode(int start,int *end);
 int edgeLength(struct SuffixTreeNode *a);
+int walkDown(node *A);
+void extendSuffixTree(int pos);
+void buildSuffixTree();
+void setSuffixIndex(node *n, int labelHeight);
 #endif
 
 
