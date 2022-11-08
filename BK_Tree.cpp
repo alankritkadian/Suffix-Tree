@@ -9,15 +9,15 @@ typedef struct BK_Tree_Node
 {
     string word;
     int next[2 * LEN];
-} node;
+} BkNode;
 
-node rootNode;
-node BK_Tree[MAX];
+BkNode rootNode;
+BkNode BK_Tree[MAX];
 int ptr;
 
-node createNode(string s)
+BkNode createNode(string s)
 {
-    node n;
+    BkNode n;
     n.word = s;
     for (int i = 0; i < 2 * LEN; i++)
         n.next[i] = 0;
@@ -51,7 +51,7 @@ int editDistance(string s1, string s2)
     return dp[n][m];
 }
 
-void addNode(node &rootNode, node &currentNode)
+void addNode(BkNode &rootNode, BkNode &currentNode)
 {
     if (rootNode.word == "")
     {
@@ -70,7 +70,7 @@ void addNode(node &rootNode, node &currentNode)
         addNode(BK_Tree[rootNode.next[d]], currentNode);
 }
 
-vector<string> getSimilarWords(node &rootNode, string s)
+vector<string> getSimilarWords(BkNode &rootNode, string s)
 {
     vector<string> similarWords;
     if (rootNode.word == "")
@@ -100,7 +100,7 @@ int main()
 
     for (int i = 0; i < n; i++)
     {
-        node temp = createNode(dictionary[i]);
+        BkNode temp = createNode(dictionary[i]);
         addNode(rootNode, temp);
     }
     string w1 = "alankrit";

@@ -9,15 +9,15 @@ typedef struct SuffixTreeNode
    int suffixIndex;
    int *end ; 
    int start ; 
-} node;
-node* newNode(int start,int *end);
+} SNode;
+SNode* newNode(int start,int *end);
 int edgeLength(struct SuffixTreeNode *a);
-int walkDown(node *A);
+int walkDown(SNode *A);
 void extendSuffixTree(int pos);
 void print(int i, int j);
 void buildSuffixTree(char* text);
-void setSuffixIndex(node *n, int labelHeight);
-node* returnRoot();
+void setSuffixIndex(SNode *n, int labelHeight);
+SNode* returnRoot();
 #endif
 
 

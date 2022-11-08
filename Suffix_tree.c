@@ -3,9 +3,9 @@
 #include<string.h>
 #include "Suffix_tree.h"
 char *test;
-node *root = NULL;
-node *lastNewNode = NULL;
-node *activeNode = NULL;
+SNode *root = NULL;
+SNode *lastNewNode = NULL;
+SNode *activeNode = NULL;
 int activeEdge = -1;
 int activeLength = 0;
 int remainingSuffixCount = 0;
@@ -13,19 +13,19 @@ int END = -1;
 int *rootEnd = NULL;
 int *splitEnd = NULL;
 int size = -1;
-node *newNode(int start, int *end)
+SNode *newNode(int start, int *end)
 {
-   node *STnode = (node *)malloc(sizeof(node));
+   SNode *STSNode = (SNode *)malloc(sizeof(SNode));
    int r = 0;
    while (r < MAX)
-      STnode->children[r++] = NULL;
-   STnode->suffixLink = root;
-   STnode->start = start;
-   STnode->end = end;
-   STnode->suffixIndex = -1;
-   return STnode;
+      STSNode->children[r++] = NULL;
+   STSNode->suffixLink = root;
+   STSNode->start = start;
+   STSNode->end = end;
+   STSNode->suffixIndex = -1;
+   return STSNode;
 }
-int edgeLength(node *A)
+int edgeLength(SNode *A)
 {
    if(A==root)
       return 0;
@@ -33,7 +33,7 @@ int edgeLength(node *A)
    long int s = A->start;
    return (e - s + 1);
 }
-int walkDown(node *A)
+int walkDown(SNode *A)
 {
    // APCFWD - Active point change for walk down using skip/count trick(Trick 1)
    if (activeLength >= edgeLength(A))
@@ -59,7 +59,7 @@ void extendSuffixTree(int pos){
             lastNewNode = NULL;
          }
       }else{
-         node* next = activeNode->children[test[activeEdge]];
+         SNode* next = activeNode->children[test[activeEdge]];
          if(walkDown(next))
          {
             continue;
@@ -75,7 +75,7 @@ void extendSuffixTree(int pos){
          }
          splitEnd = (int*)malloc(sizeof(int));
          *splitEnd = next->start + activeLength - 1;
-         node* split = newNode(next->start,splitEnd);
+         SNode* split = newNode(next->start,splitEnd);
          activeNode->children[test[activeEdge]] = split;
          split->children[test[pos]] = newNode(pos,&END);
          next->start += activeLength;
@@ -113,7 +113,7 @@ void buildSuffixTree(char * text) {
    int labelHeight = 0;
    setSuffixIndex(root,labelHeight);
 }
-void setSuffixIndex(node *n, int labelHeight)
+void setSuffixIndex(SNode *n, int labelHeight)
 {
 	if (n == NULL) return;
 	int leaf = 1;
@@ -132,6 +132,6 @@ void setSuffixIndex(node *n, int labelHeight)
 		n->suffixIndex = size - labelHeight;
 	}
 }
-node* returnRoot(){
+SNode* returnRoot(){
    return root;
 }

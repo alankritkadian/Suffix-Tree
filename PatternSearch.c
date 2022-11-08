@@ -9,10 +9,10 @@ int traverseEdge(char *str, int idx, int start, int end,char* text)
             return -1; 
     }
     if(str[idx] == '\0')
-        return 1;  
+        return 1;
     return 0;  
 }
-int doTraversalToCountLeaf(node *n)
+int doTraversalToCountLeaf(SNode *n)
 {
     if(n == NULL)
         return 0;
@@ -33,14 +33,14 @@ int doTraversalToCountLeaf(node *n)
     return count;
 }
   
-int countLeaf(node *n)
+int countLeaf(SNode *n)
 {
     if(n == NULL)
         return 0;
     return doTraversalToCountLeaf(n);
 }
   
-int doTraversal(node *n, char* str, int idx,char* text)
+int doTraversal(SNode *n, char* str, int idx,char* text)
 {
     if(n == NULL)
     {
@@ -69,7 +69,7 @@ int doTraversal(node *n, char* str, int idx,char* text)
         return -1;  // no match
 }
   
-void checkForSubString(char* str,node* root,char* text)
+void checkForSubString(char* str,SNode* root,char* text)
 {
     int res = doTraversal(root, str, 0,text);
     if(res == 1)

@@ -20,18 +20,20 @@ int main(void)
     vector<string> Items;
     bool bitarray[1000] = {false};
     int arrSize = 1000;
-    cout << "Welcome to the grocery Store!\nPlease choose\n-1 for consumer end\n-2 for seller end\n";
-    int x;
-    cin >> x;
     int z = s.size();
-    char Text[z];
+    char Text[z];  
     for (int i = 0; i < z; i++)
         Text[i] = s[i];
-    buildSuffixTree(Text);
+    buildSuffixTree(Text);  
+    string s1 = "";
+    cout << "Welcome to the grocery Store!\n";
+    label:
+    cout<<"Please choose\n-1 for consumer end\n-2 for seller end\n-3 exit\n";
+    int x;
+    cin >> x;
     if (x == 1)
     {
         string name, item = "";
-        string s = "";
         cout << "Please enter your name: ";
         cin >> name;
         int l = name.length();
@@ -41,12 +43,13 @@ int main(void)
             cin >> item;
             if (item != "end")
             {
-                s.append(name + to_string(l));
-                s.append(item);
+                s1.append(name + to_string(l));
+                s1.append(item);
             }
         }
         cout << "Thank you " << name << '!' << endl;
-        cout << s << endl;
+        cout << s1 << endl;
+        goto label;
     }
     else if (x == 2)
     {
@@ -67,9 +70,10 @@ int main(void)
         {
             cout << "Please enter the item you want to search: ";
             cin >> temp;
-            node *root = returnRoot();
+            SNode *root = returnRoot();
             checkForSubString(temp, root, Text);
         }
+        goto label;
     }
     return 0;
 }
