@@ -3,7 +3,7 @@
 using namespace std;
 
 BkNode rootNode;
-BkNode BK_Tree[MAX];
+BkNode BK_Tree[BMAX];
 int ptr;
 
 BkNode createNode(string s)
@@ -14,8 +14,6 @@ BkNode createNode(string s)
         n.next[i] = 0;
     return n;
 }
-
-// Finding edit distance between two strings by dynamic approach
 int editDistance(string s1, string s2)
 {
     int n = s1.length(), m = s2.length();
@@ -41,7 +39,6 @@ int editDistance(string s1, string s2)
     }
     return dp[n][m];
 }
-
 void addNode(BkNode &rootNode, BkNode &currentNode)
 {
     if (rootNode.word == "")
@@ -60,7 +57,6 @@ void addNode(BkNode &rootNode, BkNode &currentNode)
     else
         addNode(BK_Tree[rootNode.next[d]], currentNode);
 }
-
 vector<string> getSimilarWords(BkNode &rootNode, string s)
 {
     vector<string> similarWords;
@@ -81,24 +77,6 @@ vector<string> getSimilarWords(BkNode &rootNode, string s)
     }
     return similarWords;
 }
-
-int main()
-{
-    string dictionary[] = {"hell", "help", "shell", "smell", "fell", "felt", "oops", "pop", "oouch", "halt", "harsh", "allenkrit", "llankrit", "alankarit"};
-    ptr = 0;
-
-    int n = sizeof(dictionary) / sizeof(string);
-
-    for (int i = 0; i < n; i++)
-    {
-        BkNode temp = createNode(dictionary[i]);
-        addNode(rootNode, temp);
-    }
-    string w1 = "alankrit";
-    string w2 = "helt";
-    vector<string> match = getSimilarWords(rootNode, w1);
-    cout << "similar words in dictionary for " << w1 << " :\n";
-    for (auto x : match)
-        cout << x << endl;
-    return 0;
+BkNode* ReturnBNode(){
+    return &rootNode;
 }

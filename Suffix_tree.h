@@ -17,6 +17,7 @@ void extendSuffixTree(int pos);
 void print(int i, int j);
 void buildSuffixTree(char* text);
 void setSuffixIndex(SNode *n, int labelHeight);
+void freeSuffixTreeByPostOrder(SNode *n);
 SNode* returnRoot();
 #endif
 

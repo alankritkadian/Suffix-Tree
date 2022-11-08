@@ -100,19 +100,6 @@ void print(int i, int j)
 	for (k=i; k<=j; k++)
 		printf("%c", test[k]);
 }
-void buildSuffixTree(char * text) {
-   test = text;
-   size = strlen(test);
-   rootEnd = (int*) malloc(sizeof(int));
-   *rootEnd = -1;
-   root = newNode(-1,rootEnd);
-   activeNode = root;
-   int j = 0;
-   while(j<size)
-      extendSuffixTree(j++);
-   int labelHeight = 0;
-   setSuffixIndex(root,labelHeight);
-}
 void setSuffixIndex(SNode *n, int labelHeight)
 {
 	if (n == NULL) return;
@@ -131,6 +118,35 @@ void setSuffixIndex(SNode *n, int labelHeight)
 	{
 		n->suffixIndex = size - labelHeight;
 	}
+}
+void freeSuffixTreeByPostOrder(SNode *n)
+{
+    if (n == NULL)
+        return;
+    int i;
+    for (i = 0; i < MAX; i++)
+    {
+        if (n->children[i] != NULL)
+        {
+            freeSuffixTreeByPostOrder(n->children[i]);
+        }
+    }
+    if (n->suffixIndex == -1)
+        free(n->end);
+    free(n);
+}
+void buildSuffixTree(char * text) {
+   test = text;
+   size = strlen(test);
+   rootEnd = (int*) malloc(sizeof(int));
+   *rootEnd = -1;
+   root = newNode(-1,rootEnd);
+   activeNode = root;
+   int j = 0;
+   while(j<size)
+      extendSuffixTree(j++);
+   int labelHeight = 0;
+   setSuffixIndex(root,labelHeight);
 }
 SNode* returnRoot(){
    return root;

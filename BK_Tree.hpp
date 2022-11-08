@@ -2,7 +2,7 @@
 using namespace std;
 #ifndef BK_TREE_H
 #define BK_TREE_H
-#define MAX 100 
+#define BMAX 100 
 #define TOL 2   
 #define LEN 10  
 
@@ -15,6 +15,7 @@ BkNode createNode(string s);
 int editDistance(string s1, string s2);
 void addNode(BkNode &rootNode, BkNode &currentNode);
 vector<string> getSimilarWords(BkNode &rootNode, string s);
+BkNode* ReturnBNode();
 #endif
 
 

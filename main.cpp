@@ -3,28 +3,14 @@
 #include "Suffix_tree.h"
 #include "PatternSearch.h"
 #include "bloom.hpp"
+#include "BK_Tree.hpp"
 using namespace std;
 int main(void)
 {
-    string s;
-    FILE *filepointer;
-    filepointer = fopen("Order.txt", "r");
-    char temp[50];
-    while (!feof(filepointer))
-    {
-        fgets(temp, 50, filepointer);
-        // cout<<temp<<endl;
-        s = s + temp;
-    }
-    fclose(filepointer);
     vector<string> Items;
     bool bitarray[1000] = {false};
     int arrSize = 1000;
-    int z = s.size();
-    char Text[z];  
-    for (int i = 0; i < z; i++)
-        Text[i] = s[i];
-    buildSuffixTree(Text);  
+    BkNode* RootNode;
     string s1 = "";
     cout << "Welcome to the grocery Store!\n";
     label:
@@ -43,8 +29,24 @@ int main(void)
             cin >> item;
             if (item != "end")
             {
-                s1.append(name + to_string(l));
-                s1.append(item);
+                RootNode = ReturnBNode();
+                vector<string> match = getSimilarWords(*RootNode, item);
+                int found = 0;
+                for (auto x : match)
+                    if(x==item) found = 1;
+                if(!found&&!match.empty()){
+                    cout<<"It seems you mispelled.\nEnter the Index of the one you want from following Items:\n";
+                    for (auto x : match)
+                        cout<<x<<endl;
+                    int index;cin>>index;
+                    item = match[index-1];
+                }else if(match.empty()){
+                    cout<<"No such item or closely spelled item found.\n";
+                }   
+                if(!match.empty()){             
+                    s1.append(name + to_string(l));
+                    s1.append(item);
+                }
             }
         }
         cout << "Thank you " << name << '!' << endl;
@@ -64,14 +66,24 @@ int main(void)
             if (insert(bitarray, arrSize, s2))
             {
                 Items.push_back(s2);
+                BkNode NodeOp2 = createNode(Items.at(Items.size()-1));
+                RootNode = ReturnBNode();
+                addNode(*RootNode,NodeOp2);
             }
         }
         else if (op2 == 2)
         {
+            int z = s1.size();
+            char Text[z];  
+            char temp[50];
+            for (int i = 0; i < z; i++)
+                Text[i] = s1[i];
+            buildSuffixTree(Text);  
             cout << "Please enter the item you want to search: ";
             cin >> temp;
             SNode *root = returnRoot();
             checkForSubString(temp, root, Text);
+            freeSuffixTreeByPostOrder(root);
         }
         goto label;
     }
