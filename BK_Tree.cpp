@@ -1,15 +1,6 @@
 #include <bits/stdc++.h>
+#include"BK_Tree.hpp"
 using namespace std;
-
-#define MAX 100 // maximum number of words in dictionary
-#define TOL 2   // tolerance value
-#define LEN 10  // maximum length of words in the dictionary
-
-typedef struct BK_Tree_Node
-{
-    string word;
-    int next[2 * LEN];
-} BkNode;
 
 BkNode rootNode;
 BkNode BK_Tree[MAX];
