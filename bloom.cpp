@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
+#include"bloom.hpp"
 #define ll long long
 using namespace std;
-
 int h1(string s, int arrSize)
 {
     ll int hash = 8;
@@ -11,7 +11,6 @@ int h1(string s, int arrSize)
     }
     return hash % arrSize;
 }
-
 int h2(string s, int arrSize)
 {
     ll int hash = 0;
@@ -22,7 +21,6 @@ int h2(string s, int arrSize)
     }
     return hash;
 }
-
 int h3(string s, int arrSize)
 {
     ll int hash = 1;
@@ -33,9 +31,6 @@ int h3(string s, int arrSize)
     }
     return hash % arrSize;
 }
-
- 
-
 int h4(string s, int arrSize)
 {
     ll int hash = 4;
@@ -47,7 +42,6 @@ int h4(string s, int arrSize)
     }
     return hash;
 }
-
 int lookup(bool *bit, int arr, string s)
 {
     ll int a = h1(s, arr);
@@ -60,7 +54,6 @@ int lookup(bool *bit, int arr, string s)
     else
         return 1;
 }
-
 int insert(bool *bit, int Size, string s)
 {
 
@@ -85,43 +78,4 @@ int insert(bool *bit, int Size, string s)
         cout << s << " is Probably already present" << endl;
         return 0;
     }
-}
-
-// Driver Code
-int main()
-{
-    bool bitarray[1000] = {false};
-    int arrSize = 1000;
-    string s;
-    vector<string> unique;
-
-    vector<string> sarr;
-
-    int i = 0;
-
-    while (s != "-1")
-    {
-
-        cout << "enter -1 to exit , 1 to print \nEnter String to be entered : ";
-        cin >> s;
-        if (s == "1")
-        {
-            cout << "Unique Elements Inserted:" << endl;
-            for (int j = 0; j < unique.size(); j++)
-            {
-                cout << unique[j] << endl;
-            }
-
-            continue;
-        }
-        sarr.push_back(s);
-
-        if (insert(bitarray, arrSize, s))
-        {
-            unique.push_back(s);
-        }
-        i++;
-    }
-
-    return 0;
 }
