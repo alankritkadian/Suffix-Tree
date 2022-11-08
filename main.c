@@ -6,7 +6,7 @@ int main(void)
 {
     char text[100];
     strcpy(text, "GEEKSFORGEEKS$"); 
-    buildSuffixTree();    
+    buildSuffixTree(text);    
     printf("Text: GEEKSFORGEEKS, Pattern to search: GEEKS");
     node* root = returnRoot();
     char test[100];

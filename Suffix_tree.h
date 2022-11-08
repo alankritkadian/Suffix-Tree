@@ -14,7 +14,8 @@ node* newNode(int start,int *end);
 int edgeLength(struct SuffixTreeNode *a);
 int walkDown(node *A);
 void extendSuffixTree(int pos);
-void buildSuffixTree();
+void print(int i, int j);
+void buildSuffixTree(char* text);
 void setSuffixIndex(node *n, int labelHeight);
 node* returnRoot();
 #endif

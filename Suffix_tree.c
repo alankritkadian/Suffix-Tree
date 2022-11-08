@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include "Suffix_tree.h"
-char text[100];
+char *test;
 node *root = NULL;
 node *lastNewNode = NULL;
 node *activeNode = NULL;
@@ -51,20 +51,20 @@ void extendSuffixTree(int pos){
    lastNewNode = NULL;
    while(remainingSuffixCount){
       if(activeLength==0) activeEdge = pos;
-      if(activeNode->children[text[activeEdge]]==NULL){
-         activeNode->children[text[activeEdge]] = newNode(pos,&END);
+      if(activeNode->children[test[activeEdge]]==NULL){
+         activeNode->children[test[activeEdge]] = newNode(pos,&END);
          if(lastNewNode != NULL)
          {
             lastNewNode->suffixLink = activeNode;
             lastNewNode = NULL;
          }
       }else{
-         node* next = activeNode->children[text[activeEdge]];
+         node* next = activeNode->children[test[activeEdge]];
          if(walkDown(next))
          {
             continue;
          }
-         if(text[next->start+activeLength]==text[pos]){
+         if(test[next->start+activeLength]==test[pos]){
             if(lastNewNode != NULL && activeNode != root)
             {
                lastNewNode->suffixLink = activeNode;
@@ -76,10 +76,10 @@ void extendSuffixTree(int pos){
          splitEnd = (int*)malloc(sizeof(int));
          *splitEnd = next->start + activeLength - 1;
          node* split = newNode(next->start,splitEnd);
-         activeNode->children[text[activeEdge]] = split;
-         split->children[text[pos]] = newNode(pos,&END);
+         activeNode->children[test[activeEdge]] = split;
+         split->children[test[pos]] = newNode(pos,&END);
          next->start += activeLength;
-         split->children[text[next->start]] = next;
+         split->children[test[next->start]] = next;
          if(lastNewNode!=NULL){
             lastNewNode->suffixLink = split;
          }
@@ -94,8 +94,15 @@ void extendSuffixTree(int pos){
       }
    }
 }
-void buildSuffixTree() {
-   size = strlen(text);
+void print(int i, int j)
+{
+	int k;
+	for (k=i; k<=j; k++)
+		printf("%c", test[k]);
+}
+void buildSuffixTree(char * text) {
+   test = text;
+   size = strlen(test);
    rootEnd = (int*) malloc(sizeof(int));
    *rootEnd = -1;
    root = newNode(-1,rootEnd);
@@ -108,13 +115,22 @@ void buildSuffixTree() {
 }
 void setSuffixIndex(node *n, int labelHeight)
 {
-   if (n == NULL) 
-      return;
-   for (int i = 0; i < MAX; i++)
-   {
-      if (n->children[i] != NULL)
-         setSuffixIndex(n->children[i], labelHeight + edgeLength(n->children[i]));
-   }
+	if (n == NULL) return;
+	int leaf = 1;
+	int i;
+	for (i = 0; i < MAX; i++)
+	{
+		if (n->children[i] != NULL)
+		{
+			leaf = 0;
+			setSuffixIndex(n->children[i], labelHeight +
+								edgeLength(n->children[i]));
+		}
+	}
+	if (leaf == 1)
+	{
+		n->suffixIndex = size - labelHeight;
+	}
 }
 node* returnRoot(){
    return root;
