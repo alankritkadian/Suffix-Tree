@@ -73,17 +73,23 @@ int main(void)
         }
         else if (op2 == 2)
         {
+            s1 += "$";
             int z = s1.size();
             char Text[z];  
             char temp[50];
             for (int i = 0; i < z; i++)
                 Text[i] = s1[i];
             buildSuffixTree(Text);  
-            cout << "Please enter the item you want to search: ";
-            cin >> temp;
-            SNode *root = returnRoot();
-            checkForSubString(temp, root, Text);
-            freeSuffixTreeByPostOrder(root);
+            for(auto x:Items){
+                z = x.length();
+                char Temp2[z+1];
+                for(int i=0;i<z;i++) Temp2[i] = x[i]; 
+                Temp2[z] = '\0';           
+                SNode *root = returnRoot();
+                checkForSubString(Temp2, root, Text);
+                cout<<"------\n";
+            }
+            s1.pop_back();
         }
         goto label;
     }
