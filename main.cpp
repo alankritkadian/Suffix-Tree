@@ -51,7 +51,7 @@ int main(void)
             }
         }
         cout << "Thank you " << name << '!' << endl;
-        cout << s1 << endl;
+        // cout << s1 << endl;
         goto label;
     }
     else if (x == 2)
@@ -97,6 +97,7 @@ int main(void)
                 Temp2[z] = '\0';           
                 SNode *root = returnRoot();
                 checkForSubString(Temp2, root, Text,pos);
+                cout<<"\nThe Following have ordered "<<x<<": ";
                 while(pos[y]!=-1){
                     // cout<<Text[pos[y]-1]<<" ";
                     int num = Text[pos[y]-1]-48;
@@ -108,7 +109,6 @@ int main(void)
                         num = 10*(Text[pos[y]-2]-48)+(Text[pos[y]-1]-48);
                     }
                     // cout<<num<<" ";
-                    cout<<"\nThe Following have ordered "<<x<<": ";
                     for(int g = pos[y]-1-found-num;g<pos[y]-1-found;g++){
                         cout<<Text[g];
                     }
