@@ -1,6 +1,8 @@
 #include"Suffix_tree.h"
 #include"PatternSearch.h"
 #include<stdio.h>
+int* test2;
+int ind = 0;
 int traverseEdge(char *str, int idx, int start, int end,char* text)
 {
     int k = 0;
@@ -19,7 +21,7 @@ int doTraversalToCountLeaf(SNode *n)
         return 0;
     if(n->suffixIndex > -1)
     {
-        printf("\nFound at position: %d", n->suffixIndex);
+        test2[ind++] = n->suffixIndex;
         return 1;
     }
     int count = 0;
@@ -55,11 +57,12 @@ int doTraversal(SNode *n, char* str, int idx,char* text)
             return -1;
         if(res == 1) 
         {
-            if(n->suffixIndex > -1)
-                printf("\nsubstring count: 1 and position: %d",
-                               n->suffixIndex);
+            if(n->suffixIndex > -1){
+                printf("\nOrder count: 1");
+                test2[ind++] = n->suffixIndex;
+            }
             else
-                printf("\nsubstring count: %d", countLeaf(n));
+                printf("\nOrder count: %d", countLeaf(n));
             return 1;
         }
     }
@@ -69,12 +72,15 @@ int doTraversal(SNode *n, char* str, int idx,char* text)
     else
         return -1;  // no match
 }
-  
-void checkForSubString(char* str,SNode* root,char* text)
+void checkForSubString(char* str,SNode* root,char* text,int* pos)
 {
+    test2 = pos;
     int res = doTraversal(root, str, 0,text);
-    if(res == 1)
-        printf("\nPattern <%s> is a Substring\n", str);
-    else
-        printf("\nPattern <%s> is NOT a Substring\n", str);
+    test2[ind] = -1;
+    if(res == 1){
+        ind = 0;
+    }
+    else{
+        printf("\n%s is NOT ordered yet\n", str);
+    }
 }
