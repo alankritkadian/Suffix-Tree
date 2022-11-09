@@ -1,4 +1,5 @@
 #include"Suffix_tree.h"
+#include"PatternSearch.h"
 #include<stdio.h>
 int traverseEdge(char *str, int idx, int start, int end,char* text)
 {
