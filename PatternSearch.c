@@ -76,13 +76,6 @@ void checkForSubString(char* str,SNode* root,char* text,int* pos)
 {
     test2 = pos;
     int res = doTraversal(root, str, 0,text);
-<<<<<<< HEAD
-    if(res == 1)
-        printf("\nPattern <%s> is a Substring\n", str);
-    else
-        printf("\nPattern <%s> is NOT a Substring\n", str);
-}
-=======
     test2[ind] = -1;
     if(res == 1){
         ind = 0;
@@ -91,4 +84,3 @@ void checkForSubString(char* str,SNode* root,char* text,int* pos)
         printf("\n%s is NOT ordered yet\n", str);
     }
 }
->>>>>>> 6e227653c239ff08386aa4bfb5c52c8c2f968dd5
