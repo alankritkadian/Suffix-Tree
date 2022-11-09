@@ -10,6 +10,7 @@ int main(void)
     vector<string> Items;
     bool bitarray[1000] = {false};
     int arrSize = 1000;
+    int pos[100];
     BkNode* RootNode;
     string s1 = "";
     cout << "Welcome to the grocery Store!\n";
@@ -61,7 +62,7 @@ int main(void)
         if (op2 == 1)
         {
             string s2;
-            cout << "PLease eneter the Item name: ";
+            cout << "PLease enter the Item name: ";
             cin >> s2;
             if (insert(bitarray, arrSize, s2))
             {
@@ -79,17 +80,47 @@ int main(void)
             char temp[50];
             for (int i = 0; i < z; i++)
                 Text[i] = s1[i];
-            buildSuffixTree(Text);  
+            buildSuffixTree(Text); 
+            cout<<"-1 To display Reciept\n-2 To Search\n";
+            int h;cin>>h;
+            string hero;
+            if(h==2){
+                cout<<"Enter the Item to be Searched: ";
+                cin>>hero;
+            }
             for(auto x:Items){
+                if(h==2) x = hero;
+                int y = 0; 
                 z = x.length();
                 char Temp2[z+1];
                 for(int i=0;i<z;i++) Temp2[i] = x[i]; 
                 Temp2[z] = '\0';           
                 SNode *root = returnRoot();
-                checkForSubString(Temp2, root, Text);
-                cout<<"------\n";
+                checkForSubString(Temp2, root, Text,pos);
+                while(pos[y]!=-1){
+                    // cout<<Text[pos[y]-1]<<" ";
+                    int num = Text[pos[y]-1]-48;
+                    int num2 = Text[pos[y]-2]-48;
+                    // cout<<num<<" "<<num2<<" ";
+                    int found = 0;
+                    if(num2>=0&&num2<=9){
+                        found = 1;
+                        num = 10*(Text[pos[y]-2]-48)+(Text[pos[y]-1]-48);
+                    }
+                    // cout<<num<<" ";
+                    cout<<"\nThe Following have ordered "<<x<<": ";
+                    for(int g = pos[y]-1-found-num;g<pos[y]-1-found;g++){
+                        cout<<Text[g];
+                    }
+                    cout<<" ";
+                    y++;
+                }
+                cout<<endl;
+                cout<<"------\n\n";
+                if(h==2) break;
             }
             s1.pop_back();
+            // pos[0] = -1;
         }
         goto label;
     }
